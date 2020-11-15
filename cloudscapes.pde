@@ -7,7 +7,7 @@ void setup() {
   noStroke();
   sky = new Sky();
   clouds = new Cirrocumulus();
-  //clouds = new Cumulus();
+  // clouds = new Cumulus();
 }
 
 void draw() {
@@ -21,5 +21,9 @@ int getPixelX(int i) {
 
 int getPixelY(int i) {
   return floor(i / width);
+}
+
+PVector getPixelVector(int i) {
+  return new PVector(getPixelX(i), getPixelY(i));
 }
   
