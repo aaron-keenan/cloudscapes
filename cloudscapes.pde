@@ -1,7 +1,7 @@
 Cloudscape clouds;
 Sky sky;
-// sunrise / cyan / sahara / twilight
-ColourProfile colourProfile = new ColourProfile("sunrise");
+// sunrise / cyan / sahara / twilight / random
+ColourProfile colourProfile = new ColourProfile("random");
 
 void setup() {
   size(980, 980);

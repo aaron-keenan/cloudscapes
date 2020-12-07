@@ -9,9 +9,21 @@ class ColourProfile {
   float[][] colours;
   
   ColourProfile(String option) {
+    if (option == "random") {
+      option = options[floor(random(4))];
+    }
     switch (option) {
        case "sunrise":
          setSunriseColours();
+         break;
+       case "cyan":
+         setCyanColours();
+         break;
+       case "sahara":
+         setSaharaColours();
+         break;
+       case "twilight":
+         setTwilightColours();
          break;
     }
   }
@@ -24,6 +36,31 @@ class ColourProfile {
       {0.70, #D0D1CC},
       {0.84, #ECD8CD},
       {1.00, #FAAE8A},
+    };
+  }
+  
+  void setCyanColours() {
+    colours = new float[][]{
+      {0.00, #5885D2},
+      {0.60, #78B5FD},
+      {1.00, #BBE7FE},
+    };
+  }
+  
+  void setSaharaColours() {
+    colours = new float[][]{
+      {0.00, #AF743E},
+      {0.60, #F37D2A},
+      {1.00, #E35723},
+    };
+  }
+  
+  void setTwilightColours() {
+    colours = new float[][]{
+      {0.00, #200140},
+      {0.30, #B04178},
+      {0.60, #CF799A},
+      {1.00, #E2CE98},
     };
   }
 }
