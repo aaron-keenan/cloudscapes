@@ -40,4 +40,16 @@ class Layer {
   float getRandomY() {
     return position.y + random(layerHeight);
   }
+  
+  int getLayerPixelX(int i) {
+    return i % int(layerWidth);
+  }
+  
+  int getLayerPixelY(int i) {
+    return floor(i / int(layerWidth));
+  }
+  
+  PVector getLayerPixelVector(int i) {
+    return new PVector(getLayerPixelX(i), getLayerPixelY(i));
+  }
 }
