@@ -6,7 +6,11 @@ class ColourProfile {
     "twilight",
   };
   
-  float[][] colours;
+  float[][] baseColours;
+  float[][] cloudColours = {
+    {0.00, #FFFFFF},
+    {1.00, #FFFFFF},
+  };
   
   ColourProfile(String option) {
     if (option == "random") {
@@ -29,7 +33,7 @@ class ColourProfile {
   }
   
   void setSunriseColours() {
-    colours = new float[][]{
+    baseColours = new float[][]{
       {0.00, #2B618F},
       {0.28, #4A7CA5},
       {0.55, #AEB4B7},
@@ -40,7 +44,7 @@ class ColourProfile {
   }
   
   void setCyanColours() {
-    colours = new float[][]{
+    baseColours = new float[][]{
       {0.00, #5885D2},
       {0.60, #78B5FD},
       {1.00, #BBE7FE},
@@ -48,7 +52,7 @@ class ColourProfile {
   }
   
   void setSaharaColours() {
-    colours = new float[][]{
+    baseColours = new float[][]{
       {0.00, #AF743E},
       {0.60, #F37D2A},
       {1.00, #E35723},
@@ -56,7 +60,7 @@ class ColourProfile {
   }
   
   void setTwilightColours() {
-    colours = new float[][]{
+    baseColours = new float[][]{
       {0.00, #200140},
       {0.30, #B04178},
       {0.60, #CF799A},

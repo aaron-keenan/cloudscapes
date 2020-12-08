@@ -1,7 +1,7 @@
 Cloudscape clouds;
 Sky sky;
 // sunrise / cyan / sahara / twilight / random
-ColourProfile colourProfile = new ColourProfile("random");
+ColourProfile colourProfile = new ColourProfile("sunrise");
 
 void setup() {
   size(980, 980);
@@ -14,7 +14,7 @@ void setup() {
 
 void draw() {
   sky.display();
-  // clouds.display();
+  clouds.display();
 }
 
 int getPixelX(int i) {

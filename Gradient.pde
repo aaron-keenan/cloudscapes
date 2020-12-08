@@ -18,9 +18,9 @@ class Gradient {
   
   color getColour(int i) {
     float gradientProgress = getGradientProgress(i);
-    float[] start = colourProfile.colours[0];
-    float[] end = colourProfile.colours[colourProfile.colours.length - 1];
-    for (float[] checkpoint : colourProfile.colours) {
+    float[] start = colourProfile.baseColours[0];
+    float[] end = colourProfile.baseColours[colourProfile.baseColours.length - 1];
+    for (float[] checkpoint : colourProfile.baseColours) {
       if (gradientProgress >= checkpoint[0]) {
         start = checkpoint;
       }

@@ -1,9 +1,7 @@
 class Cloudscape {
   PImage image;
   
-  Cloudscape() {
-    makeImage();
-  }
+  void setAttributes() {}
   
   void makeImage() {
     image = createImage(width, height, ARGB);
