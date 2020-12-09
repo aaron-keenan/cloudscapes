@@ -6,10 +6,7 @@ class Cumulus extends Cloudscape {
   Layer layer;
   PShape triangle;
   int numberOfEllipses = 30;
-  PVector[] ellipsePositions;
-  float[] ellipseDiameters;
   PShape cloud;
-  PShape[] ellipses;
   
   Cumulus() {
     setAttributes();
@@ -20,7 +17,6 @@ class Cumulus extends Cloudscape {
     noiseDetail(12, 0.3);
     layer = new Layer(new PVector(0, 0), 900.0, 600.0);
     getTriangleVertices();
-    color(0, 100, 100);
     getEllipseAttributes();
   }
   
@@ -33,9 +29,8 @@ class Cumulus extends Cloudscape {
   
   void display() {
     image(image, 40, 200);
-    color(0, 100, 100);
+    //color(0, 100, 100);
     //shape(cloud);
-    //drawOutlines();
   }
   
   float getAlpha(int i) {
@@ -62,16 +57,11 @@ class Cumulus extends Cloudscape {
   
   void getEllipseAttributes() {
     cloud = createShape(GROUP);
-    if (ellipsePositions == null) {
-      ellipses = new PShape[numberOfEllipses];
-      ellipsePositions = new PVector[numberOfEllipses];
-      ellipseDiameters = new float[numberOfEllipses];
-      for (int i = 0; i < numberOfEllipses; i++) {
-        ellipsePositions[i] = getPointInTriangle();
-        ellipseDiameters[i] = getRadius();
-        ellipses[i] = createShape(ELLIPSE, ellipsePositions[i].x, ellipsePositions[i].y, int(ellipseDiameters[i]), int(ellipseDiameters[i]));
-        cloud.addChild(ellipses[i]);
-      }
+    for (int i = 0; i < numberOfEllipses; i++) {
+      PVector centre = getPointInTriangle();
+      int radius = getRadius();
+      PShape ellipse = createShape(ELLIPSE, centre.x, centre.y, radius, radius);
+      cloud.addChild(ellipse);
     }
   }
   
@@ -86,17 +76,8 @@ class Cumulus extends Cloudscape {
     return point;
   }
   
-  void drawOutlines() {
-    color(0, 100, 100);
-    for (int i = 0; i < numberOfEllipses; i++) {
-      // ellipse(position.x, position.y, position.z, position.z * 0.6);
-      circle(ellipsePositions[i].x, ellipsePositions[i].y, ellipseDiameters[i]);
-    }
-    noStroke();
-  }
-  
-  float getRadius() {
-    return random(ellipseRadiusMin, ellipseRadiusMax);
+  int getRadius() {
+    return int(random(ellipseRadiusMin, ellipseRadiusMax));
   }
   
   float getShapeFactor(int p) {
@@ -122,12 +103,6 @@ class Cumulus extends Cloudscape {
   }
   
   boolean pixelIsInRange(int p) {
-    //for (int i = 0; i < numberOfEllipses; i++) {
-    //  if (layer.getLayerPixelVector(p).sub(ellipsePositions[i].copy()).mag() < (ellipseDiameters[i] / 2)) {
-    //    return true;
-    //  }
-    //}
-    //return false;
     for (int i = 0; i < cloud.getChildCount(); i++) {
       if (pixelIsInEllipse(p, cloud.getChild(i))) {
         return true;
