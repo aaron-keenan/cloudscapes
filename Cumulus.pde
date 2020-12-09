@@ -3,9 +3,10 @@ class Cumulus extends Cloudscape {
   float perlinStepY = 0.0225;
   float ellipseRadiusMin = 50.0;
   float ellipseRadiusMax = 180.0;
+  float smoothEdge = 40.0;
   Layer layer;
   PShape triangle;
-  int numberOfEllipses = 30;
+  int numberOfEllipses = 50;
   PShape cloud;
   
   Cumulus() {
@@ -34,12 +35,12 @@ class Cumulus extends Cloudscape {
   }
   
   float getAlpha(int i) {
-    return 100.0 * getShapeFactor(i);
-    // return 100.0 * getBaseFactor(i) * getShapeFactor(i);
+    //return 100.0 * getShapeFactor(i);
+    return 100.0 * getBaseFactor(i) * getShapeFactor(i);
   }
   
   float getBaseFactor(int i) {
-    return constrain(pow(getNoiseValue(i), 1.2) * 1.6, 0, 1);
+    return 1.0 - 0.35 * constrain(pow(getNoiseValue(i), 1.2) * 1.6, 0, 1);
   }
   
   float getNoiseValue(int i) {
@@ -82,22 +83,7 @@ class Cumulus extends Cloudscape {
   
   float getShapeFactor(int p) {
     if (pixelIsInRange(p)) {
-    //if (cloud.contains(layer.getLayerPixelX(p), layer.getLayerPixelY(p))) {
-      return 0.5;
-      //float factor = 0.0;
-      //float overlapFactor = 0.0;
-      //for (int i = 0; i < numberOfEllipses; i++) {
-      //  float distanceToOutline = (ellipseDiameters[i] / 2) - layer.getLayerPixelVector(i).sub(ellipsePositions[i].copy()).mag();
-      //  if (distanceToOutline > 0) {
-      //    println(distanceToOutline);
-      //  }
-      //  factor = max(factor, distanceToOutline / (ellipseDiameters[i] / 2));
-      //  //if (distanceToOutline / (ellipseDiameters[i] / 2) > 0) {
-      //  //  overlapFactor += distanceToOutline / (ellipseDiameters[i] / 2);
-      //  //}
-      //}
-      //factor += overlapFactor * 0.1;
-      //return factor;
+      return getDistanceFromPerimeter(p) / smoothEdge;
     }
     return 0.0;
   }
@@ -126,9 +112,19 @@ class Cumulus extends Cloudscape {
     return layer.getLayerPixelVector(p).sub(centre).mag();
   }
   
-  float getRatioDistanceFromPerimeter(int p, PShape ellipse) {
-    float radius = ellipse.getParam(2) / 2;
-    float distance = getPixelDistanceFromCentre(p, ellipse);
-    return (radius - distance) / radius;
+  float getDistanceFromPerimeter(int p) {
+    float closest = 0;
+    for (int i = 0; i < cloud.getChildCount(); i++) {
+      PShape ellipse = cloud.getChild(i);
+      float radius = ellipse.getParam(2) / 2;
+      float distance = radius - getPixelDistanceFromCentre(p, ellipse);
+      if (distance > smoothEdge) {
+        return smoothEdge;
+      }
+      if (distance >= 0 && distance < smoothEdge && distance > closest) {
+        closest = distance;
+      }
+    }
+    return closest;
   }
 }
