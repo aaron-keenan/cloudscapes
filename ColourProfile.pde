@@ -41,6 +41,12 @@ class ColourProfile {
       {0.84, #ECD8CD},
       {1.00, #FAAE8A},
     };
+    cloudColours = new float[][]{
+      {0.00, #B6958B},
+      {0.40, #EDB99C},
+      {0.70, #F2D0BD},
+      {1.00, #FFFFFF},
+    };
   }
   
   void setCyanColours() {
@@ -65,10 +71,6 @@ class ColourProfile {
       {0.30, #B04178},
       {0.60, #CF799A},
       {1.00, #E2CE98},
-    };
-    cloudColours = new float[][]{
-      {0.00, #FF0000},
-      {1.00, #FF0000},
     };
   }
 }

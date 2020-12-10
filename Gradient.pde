@@ -1,5 +1,6 @@
 class Gradient {
   PImage image;
+  float[][] palette = colourProfile.baseColours;
   
   Gradient(int _width, int _height) {
     image = createImage(_width, _height, RGB);
@@ -20,11 +21,15 @@ class Gradient {
     return 0.0;
   }
   
+  void setPalette(float[][] _palette) {
+    palette = _palette;
+  }
+  
   color getColour(int i) {
     float gradientProgress = getGradientProgress(i);
-    float[] start = colourProfile.baseColours[0];
-    float[] end = colourProfile.baseColours[colourProfile.baseColours.length - 1];
-    for (float[] checkpoint : colourProfile.baseColours) {
+    float[] start = palette[0];
+    float[] end = palette[palette.length - 1];
+    for (float[] checkpoint : palette) {
       if (gradientProgress >= checkpoint[0]) {
         start = checkpoint;
       }

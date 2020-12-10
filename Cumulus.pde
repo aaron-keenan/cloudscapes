@@ -2,11 +2,11 @@ class Cumulus extends Cloudscape {
   float perlinStepX = 0.03;
   float perlinStepY = 0.04;
   float ellipseRadiusMin = 50.0;
-  float ellipseRadiusMax = 180.0;
+  float ellipseRadiusMax = 270.0;
   float smoothEdge = 24.0;
   Layer layer;
   PShape triangle;
-  int numberOfEllipses = 70;
+  int numberOfEllipses = 120;
   PShape cloud;
   
   Cumulus() {
@@ -16,7 +16,7 @@ class Cumulus extends Cloudscape {
   
   void setAttributes() {
     noiseDetail(12, 0.3);
-    layer = new Layer(new PVector(0, 0), 900, 600);
+    layer = new Layer(new PVector(0, 0), 1200, 750);
     getTriangleVertices();
     setupShapeGroup();
   }
@@ -24,7 +24,8 @@ class Cumulus extends Cloudscape {
   void makeImage() {
     image = createImage(int(layer.layerWidth), int(layer.layerHeight), ARGB);
     GradientNoise cloudColourGradient = new GradientNoise(layer.layerWidth, layer.layerHeight);
-    cloudColourGradient.setGradientNoiseDetails(0.02, 0.03, 12, 0.5);
+    cloudColourGradient.setPalette(colourProfile.cloudColours);
+    cloudColourGradient.setGradientNoiseDetails(0.004, 0.006, 12, 0.5);
     cloudColourGradient.updatePixels();
     for (int i = 0; i < image.pixels.length; i++) {
       color gradientColour = cloudColourGradient.image.pixels[i];
@@ -33,7 +34,7 @@ class Cumulus extends Cloudscape {
   }
   
   void display() {
-    image(image, 40, 200);
+    image(image, -120, 100);
     //color(0, 100, 100);
     //shape(cloud);
   }
