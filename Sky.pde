@@ -1,8 +1,10 @@
 class Sky {
-  Gradient gradient;
+  GradientLinear gradient;
   
   Sky() {
-    gradient = new Gradient();
+    gradient = new GradientLinear(width, height);
+    //gradient.setGradientNoiseDetails(0.02, 0.03, 12, 0.5);
+    //gradient.updatePixels();
   }
   
   void display() {

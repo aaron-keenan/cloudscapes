@@ -1,19 +1,23 @@
 class Gradient {
   PImage image;
   
-  Gradient() {
-    image = createImage(width, height, RGB);
-    for (int i = 0; i < image.pixels.length; i++) {
-      image.pixels[i] = getColour(i);
-    }
+  Gradient(int _width, int _height) {
+    image = createImage(_width, _height, RGB);
+    updatePixels();
   }
   
   void display() {
     image(image, 0, 0);
   }
   
+  void updatePixels() {
+    for (int i = 0; i < image.pixels.length; i++) {
+      image.pixels[i] = getColour(i);
+    }
+  }
+  
   float getGradientProgress(int i) {
-    return map(getPixelY(i), 0, height, 0, 1);
+    return 0.0;
   }
   
   color getColour(int i) {
@@ -46,6 +50,7 @@ class Gradient {
     float hue = (huea + progress * (hueb - huea)) % 360;
     float saturation = lerp(saturation(a), saturation(b), progress);
     float brightness = lerp(brightness(a), brightness(b), progress);
+    
     return color(hue, saturation, brightness);
   }
 }

@@ -1,9 +1,9 @@
 class Layer {
   PVector position;
-  float layerWidth;
-  float layerHeight;
+  int layerWidth;
+  int layerHeight;
   
-  Layer(PVector _position, float _width, float _height) {
+  Layer(PVector _position, int _width, int _height) {
     position = _position;
     layerWidth = _width;
     layerHeight = _height;
@@ -42,11 +42,11 @@ class Layer {
   }
   
   int getLayerPixelX(int i) {
-    return i % int(layerWidth);
+    return i % layerWidth;
   }
   
   int getLayerPixelY(int i) {
-    return floor(i / int(layerWidth));
+    return floor(i / layerWidth);
   }
   
   PVector getLayerPixelVector(int i) {

@@ -16,15 +16,19 @@ class Cumulus extends Cloudscape {
   
   void setAttributes() {
     noiseDetail(12, 0.3);
-    layer = new Layer(new PVector(0, 0), 900.0, 600.0);
+    layer = new Layer(new PVector(0, 0), 900, 600);
     getTriangleVertices();
     setupShapeGroup();
   }
   
   void makeImage() {
     image = createImage(int(layer.layerWidth), int(layer.layerHeight), ARGB);
+    GradientNoise cloudColourGradient = new GradientNoise(layer.layerWidth, layer.layerHeight);
+    cloudColourGradient.setGradientNoiseDetails(0.02, 0.03, 12, 0.5);
+    cloudColourGradient.updatePixels();
     for (int i = 0; i < image.pixels.length; i++) {
-      image.pixels[i] = color(0, 0, 100, getAlpha(i));
+      color gradientColour = cloudColourGradient.image.pixels[i];
+      image.pixels[i] = color(hue(gradientColour), saturation(gradientColour), brightness(gradientColour), getAlpha(i));
     }
   }
   
