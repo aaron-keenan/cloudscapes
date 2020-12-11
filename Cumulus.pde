@@ -1,8 +1,8 @@
 class Cumulus extends Cloudscape {
   float perlinStepX = 0.03;
   float perlinStepY = 0.04;
-  float ellipseRadiusMin = 50.0;
-  float ellipseRadiusMax = 270.0;
+  float ellipseWidthMin = 50.0;
+  float ellipseWidthMax = 270.0;
   float smoothEdge = 24.0;
   Layer layer;
   PShape triangle;
@@ -17,7 +17,7 @@ class Cumulus extends Cloudscape {
   
   void setAttributes() {
     noiseDetail(12, 0.3);
-    layer = new Layer(new PVector(0, 0), 1280, 780);
+    layer = new Layer(new PVector(0, 0), 920, 530);
     getTriangleVertices();
     setupShapeGroup();
   }
@@ -35,7 +35,7 @@ class Cumulus extends Cloudscape {
   }
   
   void display() {
-    image(image, getXOffset(), 150);
+    image(image, getXOffset(), 250);
     //color(0, 100, 100);
     //shape(cloud);
   }
@@ -61,17 +61,18 @@ class Cumulus extends Cloudscape {
   
   void getTriangleVertices() {
     triangle = new PShape(PShape.PATH);
-    triangle.vertex(layer.getStartX() + ellipseRadiusMax, layer.getEndY() - ellipseRadiusMax);
-    triangle.vertex(layer.getEndX() - ellipseRadiusMax, layer.getEndY() - ellipseRadiusMax);
-    triangle.vertex(random(triangle.getVertex(0).x, triangle.getVertex(1).x), layer.getStartY() + ellipseRadiusMax);
+    float ellipseRadius = ellipseWidthMax / 2;
+    triangle.vertex(layer.getStartX() + ellipseRadius, layer.getEndY() - ellipseRadius);
+    triangle.vertex(layer.getEndX() - ellipseRadius, layer.getEndY() - ellipseRadius);
+    triangle.vertex(random(triangle.getVertex(0).x, triangle.getVertex(1).x), layer.getStartY() + ellipseRadius);
   }
   
   void setupShapeGroup() {
     cloud = createShape(GROUP);
     for (int i = 0; i < numberOfEllipses; i++) {
       PVector centre = getPointInTriangle();
-      int radius = getRadius();
-      PShape ellipse = createShape(ELLIPSE, centre.x, centre.y, radius, radius);
+      int diameter = getEllipseWidth();
+      PShape ellipse = createShape(ELLIPSE, centre.x, centre.y, diameter, diameter);
       cloud.addChild(ellipse);
       updateGroupProperties(ellipse);
     }
@@ -104,8 +105,8 @@ class Cumulus extends Cloudscape {
     return point;
   }
   
-  int getRadius() {
-    return int(random(ellipseRadiusMin, ellipseRadiusMax));
+  int getEllipseWidth() {
+    return int(random(ellipseWidthMin, ellipseWidthMax));
   }
   
   float getShapeFactor(int p) {
