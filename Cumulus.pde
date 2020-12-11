@@ -8,6 +8,7 @@ class Cumulus extends Cloudscape {
   PShape triangle;
   int numberOfEllipses = 120;
   PShape cloud;
+  float cloudStartX, cloudEndX;
   
   Cumulus() {
     setAttributes();
@@ -16,7 +17,7 @@ class Cumulus extends Cloudscape {
   
   void setAttributes() {
     noiseDetail(12, 0.3);
-    layer = new Layer(new PVector(0, 0), 1200, 750);
+    layer = new Layer(new PVector(0, 0), 1280, 780);
     getTriangleVertices();
     setupShapeGroup();
   }
@@ -34,13 +35,12 @@ class Cumulus extends Cloudscape {
   }
   
   void display() {
-    image(image, -120, 100);
+    image(image, getXOffset(), 150);
     //color(0, 100, 100);
     //shape(cloud);
   }
   
   float getAlpha(int i) {
-    //return 100.0 * getShapeFactor(i);
     return 70.0 * getBaseFactor(i) * getShapeFactor(i);
   }
   
@@ -73,7 +73,24 @@ class Cumulus extends Cloudscape {
       int radius = getRadius();
       PShape ellipse = createShape(ELLIPSE, centre.x, centre.y, radius, radius);
       cloud.addChild(ellipse);
+      updateGroupProperties(ellipse);
     }
+  }
+  
+  void updateGroupProperties(PShape ellipse) {
+    float ellipseStartX = ellipse.getParam(0) - ellipse.getParam(3) / 2;
+    float ellipseEndX = ellipse.getParam(0) + ellipse.getParam(3) / 2;
+    if (cloudStartX == 0.0 || ellipseStartX < cloudStartX) {
+      cloudStartX = ellipseStartX;
+    }
+    if (cloudEndX == 0.0 || ellipseEndX > cloudEndX) {
+      cloudEndX = ellipseEndX;
+    }
+  }
+  
+  int getXOffset() {
+    float cloudCentreX = cloudStartX + ((cloudEndX - cloudStartX) / 2);
+    return int((width / 2) - cloudCentreX);
   }
   
   PVector getPointInTriangle() {

@@ -4,7 +4,7 @@ class Layer {
   int layerHeight;
   
   Layer(PVector _position, int _width, int _height) {
-    position = _position;
+    setPosition(_position);
     layerWidth = _width;
     layerHeight = _height;
   }
@@ -51,5 +51,9 @@ class Layer {
   
   PVector getLayerPixelVector(int i) {
     return new PVector(getLayerPixelX(i), getLayerPixelY(i));
+  }
+  
+  void setPosition(PVector _position) {
+    position = _position;
   }
 }
