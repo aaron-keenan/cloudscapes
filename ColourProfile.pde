@@ -55,6 +55,11 @@ class ColourProfile {
       {0.60, #78B5FD},
       {1.00, #BBE7FE},
     };
+    cloudColours = new float[][]{
+      {0.00, #8394AE},
+      {0.40, #D8DDE1},
+      {1.00, #FFFFFF},
+    };
   }
   
   void setSaharaColours() {
