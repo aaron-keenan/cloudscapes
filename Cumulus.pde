@@ -8,7 +8,7 @@ class Cumulus extends Cloudscape {
   PShape triangle;
   int numberOfEllipses = 120;
   PShape cloud;
-  float cloudStartX, cloudEndX;
+  PVector cloudStart, cloudEnd;
   
   Cumulus() {
     setAttributes();
@@ -17,7 +17,7 @@ class Cumulus extends Cloudscape {
   
   void setAttributes() {
     noiseDetail(12, 0.3);
-    layer = new Layer(new PVector(0, 0), 920, 530);
+    layer = new Layer(new PVector(0, 0), 1000, 550);
     getTriangleVertices();
     setupShapeGroup();
   }
@@ -35,13 +35,13 @@ class Cumulus extends Cloudscape {
   }
   
   void display() {
-    image(image, getXOffset(), 250);
+    image(image, getXOffset(), getYOffset());
     //color(0, 100, 100);
     //shape(cloud);
   }
   
   float getAlpha(int i) {
-    return 70.0 * getBaseFactor(i) * getShapeFactor(i);
+    return 85.0 * getBaseFactor(i) * getShapeFactor(i);
   }
   
   float getBaseFactor(int i) {
@@ -69,6 +69,8 @@ class Cumulus extends Cloudscape {
   
   void setupShapeGroup() {
     cloud = createShape(GROUP);
+    cloudStart = new PVector(0, 0);
+    cloudEnd = new PVector(0, 0);
     for (int i = 0; i < numberOfEllipses; i++) {
       PVector centre = getPointInTriangle();
       int diameter = getEllipseWidth();
@@ -79,19 +81,32 @@ class Cumulus extends Cloudscape {
   }
   
   void updateGroupProperties(PShape ellipse) {
-    float ellipseStartX = ellipse.getParam(0) - ellipse.getParam(3) / 2;
-    float ellipseEndX = ellipse.getParam(0) + ellipse.getParam(3) / 2;
-    if (cloudStartX == 0.0 || ellipseStartX < cloudStartX) {
-      cloudStartX = ellipseStartX;
+    float ellipseStartX = ellipse.getParam(0) - ellipse.getParam(2) / 2;
+    float ellipseEndX = ellipse.getParam(0) + ellipse.getParam(2) / 2;
+    float ellipseStartY = ellipse.getParam(1) - ellipse.getParam(3) / 2;
+    float ellipseEndY = ellipse.getParam(1) + ellipse.getParam(3) / 2;
+    if (cloudStart.x == 0 || ellipseStartX < cloudStart.x) {
+      cloudStart.set(ellipseStartX, cloudStart.y);
     }
-    if (cloudEndX == 0.0 || ellipseEndX > cloudEndX) {
-      cloudEndX = ellipseEndX;
+    if (cloudEnd.x == 0 || ellipseEndX > cloudEnd.x) {
+      cloudEnd.set(ellipseEndX, cloudEnd.y);
+    }
+    if (cloudStart.y == 0 || ellipseStartY < cloudStart.y) {
+      cloudStart.set(cloudStart.x, ellipseStartY);
+    }
+    if (cloudEnd.y == 0 || ellipseEndY > cloudEnd.y) {
+      cloudEnd.set(cloudEnd.x, ellipseEndY);
     }
   }
   
   int getXOffset() {
-    float cloudCentreX = cloudStartX + ((cloudEndX - cloudStartX) / 2);
+    float cloudCentreX = cloudStart.x + ((cloudEnd.x - cloudStart.x) / 2);
     return int((width / 2) - cloudCentreX);
+  }
+  
+  int getYOffset() {
+    float cloudCentreY = cloudStart.y + ((cloudEnd.y - cloudStart.y) / 2);
+    return int((height / 2) - cloudCentreY);
   }
   
   PVector getPointInTriangle() {
