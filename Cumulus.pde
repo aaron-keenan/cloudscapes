@@ -3,7 +3,7 @@ class Cumulus extends Cloudscape {
   float perlinStepY = 0.04;
   float ellipseWidthMin = 50.0;
   float ellipseWidthMax = 270.0;
-  float smoothEdge = 24.0;
+  float smoothEdge = 39.0;
   Layer layer;
   PShape triangle;
   int numberOfEllipses = 120;
@@ -17,7 +17,7 @@ class Cumulus extends Cloudscape {
   
   void setAttributes() {
     noiseDetail(12, 0.3);
-    layer = new Layer(new PVector(0, 0), 1000, 550);
+    layer = new Layer(new PVector(0, 0), 950, 420);
     getTriangleVertices();
     setupShapeGroup();
   }
@@ -41,12 +41,12 @@ class Cumulus extends Cloudscape {
   }
   
   float getAlpha(int i) {
-    return 85.0 * getBaseFactor(i) * getShapeFactor(i);
+    return 77.0 * getBaseFactor(i) * getShapeFactor(i);
   }
   
   float getBaseFactor(int i) {
     float distance = getDistanceFromPerimeter(i, 5000);
-    float noiseEdge = 60.0;
+    float noiseEdge = 100.0;
     if (distance > noiseEdge) {
       return 1.0;
     }

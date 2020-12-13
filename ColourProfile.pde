@@ -20,6 +20,9 @@ class ColourProfile {
        case "sunrise":
          setSunriseColours();
          break;
+       case "sunrise2":
+         setSunrise2Colours();
+         break;
        case "cyan":
          setCyanColours();
          break;
@@ -46,6 +49,21 @@ class ColourProfile {
       {0.40, #EDB99C},
       {0.70, #F2D0BD},
       {1.00, #FFFFFF},
+    };
+  }
+  
+  void setSunrise2Colours() {
+    baseColours = new float[][]{
+      {0.00, #2B618F},
+      {0.35, #4A7CA5},
+      {0.75, #AEB4B7},
+      {1.00, #D0D1CC},
+    };
+    cloudColours = new float[][]{
+      {0.00, #B6958B},
+      {0.40, #EDB99C},
+      {0.70, #F2D0BD},
+      {0.95, #FFFFFF},
     };
   }
   
