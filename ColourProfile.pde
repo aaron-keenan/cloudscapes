@@ -4,6 +4,7 @@ class ColourProfile {
     "cyan",
     "sahara",
     "twilight",
+    "evening",
   };
   
   float[][] baseColours;
@@ -28,6 +29,9 @@ class ColourProfile {
          break;
        case "twilight":
          setTwilightColours();
+         break;
+       case "evening":
+         setEveningColours();
          break;
     }
   }
@@ -76,6 +80,19 @@ class ColourProfile {
       {0.30, #B04178},
       {0.60, #CF799A},
       {1.00, #E2CE98},
+    };
+  }
+  
+  void setEveningColours() {
+    baseColours = new float[][]{
+      {0.00, #677791},
+      {0.40, #B9AEB7},
+      {1.00, #DFC5C0},
+    };
+    cloudColours = new float[][]{
+      {0.00, #73738D},
+      {0.50, #8596AA},
+      {1.00, #D7DFE8},
     };
   }
 }
