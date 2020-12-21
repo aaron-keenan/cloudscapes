@@ -2,6 +2,7 @@ Cloudscape clouds;
 Sky sky;
 // sunrise / cyan / sahara / twilight / random
 ColourProfile colourProfile = new ColourProfile("evening");
+CurrentDate currentDate = new CurrentDate();
 
 void setup() {
   size(1080, 1080);
@@ -15,6 +16,10 @@ void setup() {
 void draw() {
   sky.display();
   clouds.display();
+}
+
+void mouseClicked() {
+  save("output/cloudscapes-"+currentDate.toString()+".png");
 }
 
 int getPixelX(int i) {
