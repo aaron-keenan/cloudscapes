@@ -4,7 +4,7 @@ class Gradient {
   
   Gradient(int _width, int _height) {
     image = createImage(_width, _height, RGB);
-    updatePixels();
+    //updatePixels();
   }
   
   void display() {

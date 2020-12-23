@@ -7,6 +7,7 @@ CurrentDate currentDate = new CurrentDate();
 void setup() {
   size(1080, 1080);
   colorMode(HSB, 360, 100, 100, 100);
+  smooth(4);
   noStroke();
   sky = new Sky();
   // clouds = new Cirrocumulus();
