@@ -1,6 +1,7 @@
 class Gradient {
   PImage image;
   float[][] palette = colourProfile.baseColours;
+  float weight = 1.0;
   
   Gradient(int _width, int _height) {
     image = createImage(_width, _height, RGB);
@@ -21,8 +22,12 @@ class Gradient {
     return 0.0;
   }
   
+  void setWeight(float _weight) {
+    this.weight = _weight;
+  }
+  
   void setPalette(float[][] _palette) {
-    palette = _palette;
+    this.palette = _palette;
   }
   
   color getColour(int i) {

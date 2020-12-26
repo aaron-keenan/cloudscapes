@@ -5,9 +5,9 @@ class GradientHybrid extends Gradient {
     super(_width, _height);
   }
   
-  void addGradient(Gradient gradient) {
+  void addGradient(Gradient gradient, float weight) {
+    gradient.setWeight(weight);
     gradients.add(gradient);
-    updatePixels();
   }
   
   float getGradientProgress(int i) {
@@ -16,9 +16,8 @@ class GradientHybrid extends Gradient {
       return progress; 
     }
     for (Gradient gradient : gradients) {
-      progress += gradient.getGradientProgress(i);
+      progress += gradient.getGradientProgress(i) * gradient.weight;
     }
-    progress /= gradients.size();
     return progress;
   }
 }
