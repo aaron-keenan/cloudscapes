@@ -1,6 +1,7 @@
 class Cumulus extends Cloudscape {
   float perlinStepX = 0.03;
   float perlinStepY = 0.04;
+  float perlinZ = 0;
   float ellipseWidthMin = 50.0;
   float ellipseWidthMax = 270.0;
   float smoothEdge = 24.0;
@@ -16,21 +17,16 @@ class Cumulus extends Cloudscape {
   }
   
   void setAttributes() {
+    perlinZ = random(100);
     noiseDetail(12, 0.3);
-    layer = new Layer(new PVector(0, 0), 1000, 550);
+    layer = new Layer(new PVector(0, 0), width + 400, height);
     getTriangleVertices();
     setupShapeGroup();
   }
   
   void makeImage() {
     image = createImage(int(layer.layerWidth), int(layer.layerHeight), ARGB);
-    GradientHybrid cloudColourGradient = new GradientHybrid(layer.layerWidth, layer.layerHeight);
-    GradientLinear cloudColourLinear = new GradientLinear(layer.layerWidth, layer.layerHeight);
-    GradientNoise cloudColourNoise = new GradientNoise(layer.layerWidth, layer.layerHeight);
-    cloudColourGradient.setPalette(colourProfile.cloudColours);
-    cloudColourNoise.setGradientNoiseDetails(0.004, 0.006, 12, 0.5);
-    cloudColourGradient.addGradient(cloudColourLinear, 0.3);
-    cloudColourGradient.addGradient(cloudColourNoise, 0.7);
+    Gradient cloudColourGradient = getCumulusGradient();
     cloudColourGradient.updatePixels();
     for (int i = 0; i < image.pixels.length; i++) {
       color gradientColour = cloudColourGradient.image.pixels[i];
@@ -39,9 +35,19 @@ class Cumulus extends Cloudscape {
   }
   
   void display() {
-    image(image, getXOffset(), getYOffset());
-    //color(0, 100, 100);
-    //shape(cloud);
+    // image(image, getXOffset(), getYOffset());
+    image(image, getXOffset(), 200);
+  }
+  
+  Gradient getCumulusGradient() {
+    GradientHybrid cloudColourGradient = new GradientHybrid(layer.layerWidth, layer.layerHeight);
+    GradientLinear cloudColourLinear = new GradientLinear(layer.layerWidth, layer.layerHeight);
+    GradientNoise cloudColourNoise = new GradientNoise(layer.layerWidth, layer.layerHeight);
+    cloudColourGradient.setPalette(palette.getColours("sunrise.clouds"));
+    cloudColourNoise.setGradientNoiseDetails(0.004, 0.006, 12, 0.5);
+    cloudColourGradient.addGradient(cloudColourLinear, 0.3);
+    cloudColourGradient.addGradient(cloudColourNoise, 0.7);
+    return cloudColourGradient;
   }
   
   float getAlpha(int i) {
@@ -60,7 +66,7 @@ class Cumulus extends Cloudscape {
   float getNoiseValue(int i) {
     float x = layer.getLayerPixelX(i) * perlinStepX;
     float y = layer.getLayerPixelY(i) * perlinStepY;
-    return noise(x, y);
+    return noise(x, y, perlinZ);
   }
   
   void getTriangleVertices() {

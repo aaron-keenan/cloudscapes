@@ -6,6 +6,7 @@ class Sky {
     gradient.addGradient(new GradientLinear(width, height), 0.92);
     GradientNoise noise = new GradientNoise(width, height);
     noise.setGradientNoiseDetails(0.006, 0.009, 12, 0.5);
+    gradient.setPalette(palette.getColours("sunrise.base"));
     gradient.addGradient(noise, 0.08);
     gradient.updatePixels();
   }

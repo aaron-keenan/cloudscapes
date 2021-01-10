@@ -1,0 +1,56 @@
+{
+  "palettes": {
+    "default": {
+      "base": {
+        "colours": ["#0000FF", "#0000FF"],
+        "stops": [0.00, 1.00]
+      },
+      "clouds": {
+        "colours": ["#FFFFFF", "#FFFFFF"],
+        "stops": [0.00, 1.00]
+      }
+    },
+    "sunrise": {
+      "base": {
+        "colours": ["#2B618F", "#4A7CA5", "#AEB4B7", "#D0D1CC", "#ECD8CD", "#FAAE8A"],
+        "stops": [0.00, 0.28, 0.55, 0.70, 0.84, 1.00]
+      },
+      "clouds": {
+        "colours": ["#B6958B", "#EDB99C", "#F2D0BD", "#FFFFFF"],
+        "stops": [0.00, 0.40, 0.70, 1.00]
+      }
+    },
+    "cyan": {
+      "base": {
+        "colours": ["#5885D2", "#78B5FD", "#BBE7FE"],
+        "stops": [0.00, 0.60, 1.00]
+      },
+      "clouds": {
+        "colours": ["#8394AE", "#D8DDE1", "#FFFFFF"],
+        "stops": [0.00, 0.40, 1.00]
+      }
+    },
+    "sahara": {
+      "base": {
+        "colours": ["#AF743E", "#F37D2A", "#E35723"],
+        "stops": [0.00, 0.60, 1.00]
+      }
+    },
+    "twilight": {
+      "base": {
+        "colours": ["#200140", "#B04178", "#CF799A", "#E2CE98"],
+        "stops": [0.00, 0.30, 0.60, 1.00]
+      }
+    },
+    "evening": {
+      "base": {
+        "colours": ["#677791", "#B9AEB7", "#DFC5C0"],
+        "stops": [0.00, 0.40, 1.00]
+      },
+      "clouds": {
+        "colours": ["#FFFFFF", "#EDF2F7", "#8596AA", "#73738D"],
+        "stops": [0.00, 0.10, 0.50, 1.00]
+      }
+    }
+  }
+}

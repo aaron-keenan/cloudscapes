@@ -1,7 +1,7 @@
-Cloudscape clouds;
 Sky sky;
-// sunrise / cyan / sahara / twilight / random
-ColourProfile colourProfile = new ColourProfile("evening");
+Cloudscape[] clouds;
+int cloudsTotal = 1;
+Palette palette;
 CurrentDate currentDate = new CurrentDate();
 
 void setup() {
@@ -9,14 +9,20 @@ void setup() {
   colorMode(HSB, 360, 100, 100, 100);
   smooth(4);
   noStroke();
+  palette = new Palette();
   sky = new Sky();
   // clouds = new Cirrocumulus();
-  clouds = new Cumulus();
+  clouds = new Cumulus[cloudsTotal];
+  for (int i = 0; i < cloudsTotal; i++) {
+    clouds[i] = new Cumulus();
+  }
 }
 
 void draw() {
   sky.display();
-  clouds.display();
+  for (int i = 0; i < cloudsTotal; i++) {
+    clouds[i].display();
+  }
 }
 
 void mouseClicked() {
