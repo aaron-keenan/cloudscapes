@@ -11,7 +11,7 @@ class Palette {
   
   float[][] getColours(String paletteName) {
     selectedPalette = this.getSelectedPalette(paletteName);
-    JSONArray jsonColours = selectedPalette.getJSONArray("colours");
+    JSONArray jsonColours = this.getPaletteColours();
     JSONArray jsonStops = selectedPalette.getJSONArray("stops");
     float[][] colours = new float[jsonColours.size()][2];
     for (int i = 0; i < jsonColours.size(); i++) {
@@ -28,6 +28,14 @@ class Palette {
       selectedPalette = selectedPalette.getJSONObject(id);
     }
     return selectedPalette;
+  }
+  
+  JSONArray getPaletteColours() {
+    JSONArray jsonColours = selectedPalette.getJSONArray("colours");
+    if (jsonColours == null) {
+      jsonColours = selectedPalette.getJSONArray("colors");
+    }
+    return jsonColours;
   }
   
   float convertHexColour(String hex) {
