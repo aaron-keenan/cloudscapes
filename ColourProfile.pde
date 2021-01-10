@@ -90,9 +90,10 @@ class ColourProfile {
       {1.00, #DFC5C0},
     };
     cloudColours = new float[][]{
-      {0.00, #73738D},
+      {0.00, #FFFFFF},
+      {0.10, #EDF2F7},
       {0.50, #8596AA},
-      {1.00, #D7DFE8},
+      {1.00, #73738D},
     };
   }
 }
